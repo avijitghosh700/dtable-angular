@@ -1,0 +1,49 @@
+<div class="dtable h-[calc(100vh-14rem)] w-full overflow-auto">
+  <table class="w-full">
+    <thead class="sticky top-0 w-full bg-white">
+      <ng-container
+        *ngTemplateOutlet="headerComponent ?? defaultHeader"
+      ></ng-container>
+
+      <ng-template #defaultHeader>
+        <tr>
+          <th class="w-1/3 p-2 border border-neutral-500 whitespace-nowrap">
+            Id
+          </th>
+          <th class="p-2 border border-neutral-500 whitespace-nowrap">Name</th>
+          <th class="p-2 border border-neutral-500 whitespace-nowrap">Age</th>
+          <th class="p-2 border border-neutral-500 whitespace-nowrap">
+            Gender
+          </th>
+          <th class="p-2 border border-neutral-500 whitespace-nowrap">
+            Action
+          </th>
+        </tr>
+      </ng-template>
+    </thead>
+    <tbody>
+      <ng-container
+        [ngTemplateOutlet]="bodyComponent || defaultBody"
+        [ngTemplateOutletContext]="{ $implicit: data }"
+      ></ng-container>
+
+      <ng-template #defaultBody let-data>
+        @for (item of data; track item.id) {
+        <tr>
+          <td class="p-2 border border-neutral-500">{{ item.id }}</td>
+          <td class="p-2 border border-neutral-500">{{ item.name }}</td>
+          <td class="p-2 border border-neutral-500">{{ item.age }}</td>
+          <td class="p-2 border border-neutral-500">{{ item.gender }}</td>
+          <td class="p-2 border border-neutral-500"></td>
+        </tr>
+        } @empty {
+        <tr class="text-center">
+          <td colspan="5" class="p-2 border border-neutral-500">
+            No data found
+          </td>
+        </tr>
+        }
+      </ng-template>
+    </tbody>
+  </table>
+</div>
